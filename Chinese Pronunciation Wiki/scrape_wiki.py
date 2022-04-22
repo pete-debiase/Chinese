@@ -23,7 +23,7 @@ urls = [url_pattern.format(l) for l in levels]
 # │ Aggregate New Pronunciation Points For Each Level
 # └─────────────────────────────────────────────────────────────────────────────
 points = {}
-for level, url in list(zip(levels, urls)):
+for level, url in zip(levels, urls):
     time.sleep(random.randint(3, 6))
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
