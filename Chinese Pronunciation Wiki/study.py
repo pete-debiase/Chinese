@@ -7,7 +7,7 @@ import os
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Prepare Anki cards from new pronunciation points
 # └─────────────────────────────────────────────────────────────────────────────
-with open('new.json', 'r', encoding='utf-8') as f:
+with open('scraped.json', 'r', encoding='utf-8') as f:
     new_points = json.load(f)
 
 s = 'Chinese Pronunciation Wiki {level}<br><br><a href="{url}">{title}</a>'
@@ -16,7 +16,7 @@ tsv = [s.format(p['level'], p['url'], p['title']) for p in new_points.values()]
 with open('for_Anki.txt', 'w+', newline='\n', encoding='utf-8') as f:
     f.write('\n'.join(tsv))
 
-os.remove('new.json')
+os.remove('scraped.json')
 
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Update studied pronunciation points
