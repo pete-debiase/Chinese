@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare the consumed pronunciation points for study in Anki"""
+"""Prepare the scraped pronunciation points for study in Anki"""
 
 import json
 import os

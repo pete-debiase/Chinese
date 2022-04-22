@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Consume the Chinese Pronunciation Wiki"""
+"""Scrape the Chinese Pronunciation Wiki"""
 
 import json
 import random
