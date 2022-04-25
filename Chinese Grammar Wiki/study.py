@@ -62,11 +62,15 @@ scraped_points_by_level = organize_by_level(scraped_points)
 studied_points_by_level = organize_by_level(studied_points)
 
 print('Progress Stats')
+total_studied = total_scraped = 0
 for level in levels:
     num_studied = len(studied_points_by_level[level])
     num_scraped = len(scraped_points_by_level[level])
     ratio = num_studied / num_scraped
     print(f"{level}: {num_studied} / {num_scraped} ({ratio:.0%})")
+    total_studied += num_studied
+    total_scraped += num_scraped
+print(f"Total: {total_studied} / {total_scraped} ({total_studied / total_scraped:.0%})")
 
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Pull example sentences from selected point
@@ -90,7 +94,7 @@ for group in example_groups:
             if expl: chinese = chinese.replace(expl, '')
             for rep in [pinyin, english, ' ']:
                 chinese = chinese.replace(rep, '')
-            pinyin.replace('  ', ' ')
+            pinyin = pinyin.replace('  ', ' ')
 
             example = f'CGW<br><br>{chinese}\t\t{pinyin.strip()}\t{english.strip()}\t\t\t{link}'
             example.replace('  ', ' ')
