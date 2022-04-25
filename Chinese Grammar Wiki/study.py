@@ -95,6 +95,7 @@ for group in example_groups:
             for rep in [pinyin, english, ' ']:
                 chinese = chinese.replace(rep, '')
             pinyin = pinyin.replace('  ', ' ')
+            if expl: english += f' ({expl})'
 
             example = f'CGW<br><br>{chinese}\t\t{pinyin.strip()}\t{english.strip()}\t\t\t{link}'
             example.replace('  ', ' ')
