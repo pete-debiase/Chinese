@@ -104,5 +104,5 @@ for group in example_groups:
         examples.append(example)
 
 examples = [e for e in examples if e]
-with open('examples.tsv', 'w+', newline='\n', encoding='utf-8') as f:
+with open('temp.tsv', 'w+', newline='\n', encoding='utf-8') as f:
     f.write('\n'.join(examples))
