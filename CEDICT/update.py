@@ -27,7 +27,7 @@ for raw_entry in raw_entries:
     pinyin = parsed[2]
     defs = parsed[3]
 
-    pinyin = decode_pinyin(pinyin)
+    pinyin_unicode = decode_pinyin(pinyin)
     defs = defs.replace('/', '; ')
     inner_pinyins = re.findall(r'\[(.*?)\]', defs)
     for ip in inner_pinyins:
@@ -35,7 +35,7 @@ for raw_entry in raw_entries:
         defs = defs.replace(ip, pinyin_unicode)
 
     keys = set([simp, trad])
-    parsed_entry = {'t': trad, 's': simp, 'p': pinyin, 'd': defs}
+    parsed_entry = {'t': trad, 's': simp, 'p': pinyin_unicode, 'p#': pinyin, 'd': defs}
     for key in keys: cedict[key].append(parsed_entry)
 
     trad_all.append(trad)
