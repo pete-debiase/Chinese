@@ -35,7 +35,7 @@ for raw_entry in raw_entries:
         defs = defs.replace(ip, pinyin_unicode)
 
     keys = set([simp, trad])
-    parsed_entry = {'trad': trad, 'simp': simp, 'pinyin': pinyin, 'defs': defs}
+    parsed_entry = {'t': trad, 's': simp, 'p': pinyin, 'd': defs}
     for key in keys: cedict[key].append(parsed_entry)
 
     trad_all.append(trad)
@@ -43,7 +43,7 @@ for raw_entry in raw_entries:
 
 
 with open('cedict_ts.json', 'w+', newline='\n', encoding='utf-8') as f:
-    json.dump(cedict, f, indent=2, ensure_ascii=False)
+    json.dump(cedict, f, ensure_ascii=False)
 
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Create text files to power Jieba segmentation
