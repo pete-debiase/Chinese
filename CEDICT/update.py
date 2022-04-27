@@ -5,6 +5,9 @@ import json
 import re
 from pinyin import decode_pinyin
 
+# TODO: Stop clobbering dupes
+# TODO: Export trad-only and simp-only .txts for jieba
+
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Download latest CEDICT
 # └─────────────────────────────────────────────────────────────────────────────
