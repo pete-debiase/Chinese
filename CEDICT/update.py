@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Download and parse latest CEDICT"""
 
+from collections import defaultdict
 import json
 import re
+
 from pinyin import decode_pinyin
 
-# TODO: Stop clobbering dupes
 # TODO: Export trad-only and simp-only .txts for jieba
 
 # ┌─────────────────────────────────────────────────────────────────────────────
@@ -16,12 +17,12 @@ from pinyin import decode_pinyin
 # │ Parse + Convert to JSON
 # └─────────────────────────────────────────────────────────────────────────────
 with open('cedict_ts.u8', 'r', encoding='utf-8') as f:
-    entries = [line.strip() for line in f if line[0] != '#']
+    raw_entries = [line.strip() for line in f if line[0] != '#']
 
-cedict = {}
-for e in entries:
+cedict = defaultdict(list)
+for raw_entry in raw_entries:
     # CEDICT format: trad simp [pinyin] /def1/def2/.../
-    parsed = re.search(r'^(.*?) (.*?) \[(.*?)\] /(.*)/$', e).groups()
+    parsed = re.search(r'^(.*?) (.*?) \[(.*?)\] /(.*)/$', raw_entry).groups()
     trad = parsed[0]
     simp = parsed[1]
     pinyin = parsed[2]
@@ -34,8 +35,10 @@ for e in entries:
         pinyin_unicode = decode_pinyin(ip)
         defs = defs.replace(ip, pinyin_unicode)
 
-    cedict[simp] = {'trad': trad, 'simp': simp, 'pinyin': pinyin, 'defs': defs}
-    cedict[trad] = {'trad': trad, 'simp': simp, 'pinyin': pinyin, 'defs': defs}
+    keys = set([simp, trad])
+    parsed_entry = {'trad': trad, 'simp': simp, 'pinyin': pinyin, 'defs': defs}
+    for key in keys: cedict[key].append(parsed_entry)
+
 
 with open('cedict_ts.json', 'w+', newline='\n', encoding='utf-8') as f:
     json.dump(cedict, f, indent=2, ensure_ascii=False)
