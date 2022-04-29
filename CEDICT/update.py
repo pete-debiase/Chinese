@@ -31,8 +31,8 @@ for raw_entry in raw_entries:
     defs = defs.replace('/', '; ')
     inner_pinyins = re.findall(r'\[(.*?)\]', defs)
     for ip in inner_pinyins:
-        pinyin_unicode = decode_pinyin(ip)
-        defs = defs.replace(ip, pinyin_unicode)
+        ip_unicode = decode_pinyin(ip)
+        defs = defs.replace(ip, ip_unicode)
 
     keys = set([simp, trad])
     parsed_entry = {'t': trad, 's': simp, 'p': pinyin_unicode, 'p#': pinyin, 'd': defs}
