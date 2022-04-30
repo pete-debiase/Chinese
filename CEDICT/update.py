@@ -5,7 +5,7 @@ from collections import defaultdict
 import json
 import re
 
-from pinyin import decode_pinyin
+from pinyin_tools import numeric_to_accented
 
 # ┌─────────────────────────────────────────────────────────────────────────────
 # │ Download latest CEDICT
@@ -25,17 +25,16 @@ for raw_entry in raw_entries:
     trad = parsed[0]
     simp = parsed[1]
     pinyin = parsed[2]
-    defs = parsed[3]
+    defs = parsed[3].replace('/', '; ')
 
-    pinyin_unicode = decode_pinyin(pinyin)
-    defs = defs.replace('/', '; ')
+    pinyin_accented = numeric_to_accented(pinyin)
     inner_pinyins = re.findall(r'\[(.*?)\]', defs)
     for ip in inner_pinyins:
-        ip_unicode = decode_pinyin(ip)
+        ip_unicode = numeric_to_accented(ip)
         defs = defs.replace(ip, ip_unicode)
 
     keys = set([simp, trad])
-    parsed_entry = {'t': trad, 's': simp, 'p': pinyin_unicode, 'p#': pinyin, 'd': defs}
+    parsed_entry = {'t': trad, 's': simp, 'p': pinyin_accented, 'd': defs}
     for key in keys: cedict[key].append(parsed_entry)
 
     trad_all.append(trad)
