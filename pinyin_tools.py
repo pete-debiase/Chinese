@@ -22,7 +22,7 @@ def accented_to_numeric(accented_pinyin: str) -> str:
     numeric = dmt.accented_to_numbered(accented_pinyin)
     return numeric
 
-def tonetag(pinyin_accented: str, hanzi=None) -> tuple[str, str|None]:
+def tonetag(pinyin_accented: str, hanzi=None) -> tuple[str, str | None]:
     """Span-tag pinyin/by tone (for displaying with color)."""
     pinyin_tagged, hanzi_tagged = pinyin_accented, hanzi
 
@@ -38,7 +38,7 @@ def tonetag(pinyin_accented: str, hanzi=None) -> tuple[str, str|None]:
         for h, t in zip(hanzis, tones):
             hanzi_tagged = hanzi_tagged.replace(h, f'<span class="tone{t}">{h}</span>')
 
-    return (pinyin_tagged, hanzi_tagged)
+    return pinyin_tagged, hanzi_tagged
 
 
 if __name__ == '__main__':
